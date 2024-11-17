@@ -191,7 +191,7 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### alembic Folder
 
-- The `alembic` folder contains the core code of the database migration program.
+- The `alembic` folder contains the core code of the database migration program
 
 ### app Folder
 
@@ -203,19 +203,19 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### bootstrap Folder
 
-- The `bootstrap` folder contains the `application.py` file, which is used to bootstrap the framework and create a `Fastapi` instance.
+- The `bootstrap` folder contains the `application.py` file, which is used to bootstrap the framework and create a `Fastapi` instance
 
 ### config Folder
 
-- The `config` folder, as the name suggests, contains all the configuration files of the application.
+- The `config` folder, as the name suggests, contains all the configuration files of the application
 
 ### routes Folder
 
-- The `routes` folder contains all the route definitions of the application.
+- The `routes` folder contains all the route definitions of the application
 
 ### static Folder
 
-- `swagger-ui` is difficult to access in China, so it needs to be downloaded and saved locally.
+- `swagger-ui` is difficult to access in China, so it needs to be downloaded and saved locally
 
 - [Solving the problem of fastapi accessing /docs and /redoc interface documentation showing blank or unable to load](https://blog.csdn.net/weixin_43936332/article/details/131020726)
 
@@ -241,10 +241,10 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### storage Folder
 
-- The `storage` folder is used to store log files, temporary files, and other material files.
-  - `logs` folder: Used for storing log files.
-  - `supervisor` folder: Used for storing the configuration files for `supervisor`.
-  - `tmp` folder: Used for temporary and other reference files.
+- The `storage` folder is used to store log files, temporary files, and other material files
+  - `logs` folder: Used for storing log files
+  - `supervisor` folder: Used for storing the configuration files for `supervisor`
+  - `tmp` folder: Used for temporary and other reference files
 
 ---
 

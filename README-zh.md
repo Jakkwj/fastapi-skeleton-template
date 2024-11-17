@@ -241,7 +241,7 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### storage 文件夹
 
-- `storage`文件夹用于存放日志文件，临时文件及其他资料性文件。
+- `storage`文件夹用于存放日志文件，临时文件及其他资料性文件
   - `logs`文件夹: 用于存放日志文件
   - ` supervisor`文件夹: 用于存放 `supervisor`的配置文件
   - `tmp`文件夹: 临时及其他资料性文件
