@@ -1,0 +1,148 @@
+# https://docs.astral.sh/ruff/configuration/
+# https://zhuanlan.zhihu.com/p/595037918#:~:text=Ruff%20%E5%88%A9%E7%94%A8%20Ru
+
+
+target-version = "py311"  # Assume Python 3.11.
+indent-width = 4
+line-length = 100
+
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]  # Exclude a variety of commonly ignored directories.
+
+
+[lint]
+# F表示Pyflakes, E表示pycodestyle, ANN表示flake8-annotations
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+# https://docs.astral.sh/ruff/linter/#rule-selection
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes 基础问题检查
+    "F",
+    # PEP8 检查
+    "W",
+    # isort import 排序
+    "I",
+    # pyupgrade python 新版语法
+    "UP",
+    # PEP8 命名规范检查
+    "N",
+    # Pylint 静态代码检查
+    "PL",
+    # 性能问题检查
+    "PERF",
+    # Ruff 社区
+    "RUF",
+]
+# select = ["E", "F"]
+#select = ["E4", "E7", "E9", "F"]
+
+
+# Never enforce `E501` (line length violations).
+# "F401",
+ignore = [
+    "E501",
+    "PLR0915",
+    "N802",
+    "N803",
+    "N806",
+    "PLR0912",
+    "PLR0913",
+]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+# Never try to fix `F401` (unused imports).
+unfixable = [
+    "F401"
+]
+
+
+
+# Allow unused variables when underscore-prefixed.
+#dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Ignore `E402` (import violations) in all `__init__.py` files, and in `path/to/file.py`.
+#[tool.ruff.per-file-ignores]
+#"__init__.py" = ["E402"]
+#"path/to/file.py" = ["E402"]
+
+
+
+
+
+#[mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+#max-complexity = 10
+
+
+
+
+
+[format]
+# quote-style = "single"  # 使用单引号
+quote-style = "double"  # 使用双引号
+
+# indent-style = "tab"  # 缩进使用单个tab
+#indent-style = "space"
+
+# 启用docstring代码片段格式化
+# Enable auto-formatting of code examples in docstrings. Markdown,
+# reStructuredText code/literal blocks and doctests are all supported.
+docstring-code-format = true
+
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+
+# Set the line length limit used when formatting code snippets in docstrings.
+# This only has an effect when the `docstring-code-format` setting is enabled.
+docstring-code-line-length = "dynamic"
+
+
+
+
+
+
+
+
+
+# Ignore `E402` (import violations) in all `__init__.py` files, and in selected subdirectories.
+#[lint.per-file-ignores]
+#"__init__.py" = ["E402"]
+#"**/{tests,docs,tools}/*" = ["E402"]
+
+
