@@ -25,7 +25,12 @@
 
 ## 运行
 
-### 1. 初始化
+### 1. 安装要求
+
+- `python`版本：`3.11+`
+- `uv pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt`
+
+### 2. 初始化
 
 #### 数据库
 
@@ -33,7 +38,6 @@
 
 ```bash
 # 安装 alembic
-uv pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 python -m alembic init alembic
 
 # 修改 alembic.ini 文件
@@ -69,7 +73,7 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
     pass
 ```
 
-### 2. 启动
+### 3. 启动
 
 - `fastapi`与调度任务框架是分开启动的
 - **fastapi**

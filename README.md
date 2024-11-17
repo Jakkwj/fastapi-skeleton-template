@@ -25,7 +25,12 @@
 
 ## Running
 
-### 1. Initialization
+### 1. Installation Requirements
+
+- `python`version：`3.11+`
+- `uv pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt`
+
+### 2. Initialization
 
 #### database
 
@@ -68,7 +73,7 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
     pass
 ```
 
-### 2. Startup
+### 3. Startup
 
 - `fastapi` and the scheduling task framework are started separately
 - **fastapi**
