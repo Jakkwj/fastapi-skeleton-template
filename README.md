@@ -1,226 +1,222 @@
-# Fastapi Skeleton Template
+[English](https://github.com/Jakkwj/fastapi-skeleton-template) |[简体中文](https://github.com/Jakkwj/fastapi-skeleton-template/blob/master/README-zh.md)
 
-[中文](https://github.com/Jakkwj/fastapi-skeleton-template)  [English](https://github.com/Jakkwj/fastapi-skeleton-template/blob/master/README-en.md)
+## Introduction
 
-## 简介
+- A ready-to-use **FastAPI** skeleton, upgraded and adjusted based on the source project [fastapi-skeleton](https://github.com/kaxiluo/fastapi-skeleton), integrating the following modules:
 
-- 一个开箱即用的 **FastAPI** 脚手架，在源项目 [fastapi-skeleton](https://github.com/kaxiluo/fastapi-skeleton) 的基础上进行了升级和调整，集成了以下模块：
-
-  - 数据库
+  - Database
 
     - [postgresql](https://www.postgresql.org) + [redis](https://github.com/redis/redis)
-    - `ORM`模型: [sqlalchemy](https://github.com/sqlalchemy/sqlalchemy)
-    - 迁移: [alembic](https://github.com/sqlalchemy/alembic)
-  - `JWT`认证：提供`raccess_token` 和 `refresh_token`认证
-  - 日志系统：[loguru](https://github.com/Delgan/loguru)，优雅、简洁的日志库
-  - 调度任务: [funboost](https://github.com/ydf0509/funboost) ，非常牛逼的万能分布式函数调度框架
-  - 异常处理：自定义认证异常类
-  - 路由注册：集中注册
-  - 中间件: 默认注册了全局 `CORS` 中间件
-  - 系统配置：
-  
-    - 基于 `pydantic.BaseSettings`，使用 `.env` 文件设置环境变量
-    - 配置文件按功能模块划分，包括基础配置、数据库配置、日志配置、邮箱配置、认证配置
+    - `ORM` model: [sqlalchemy](https://github.com/sqlalchemy/sqlalchemy)
+    - Migration: [alembic](https://github.com/sqlalchemy/alembic)
+
+  - `JWT` authentication: Providing `access_token` and `refresh_token` authentication
+  - Logging system: [loguru](https://github.com/Delgan/loguru), an elegant and concise logging library
+  - Scheduling tasks: [funboost](https://github.com/ydf0509/funboost), a very powerful universal distributed function scheduling framework
+  - Exception handling: Custom authentication exception classes
+  - Route registration: Centralized registration
+  - Middleware: Default registration of global `CORS` middleware
+  - System configuration:
+
+    - Based on `pydantic.BaseSettings`, using `.env` file to set environment variables
+    - Configuration files are divided according to functional modules, including basic configuration, database configuration, logging configuration, email configuration, and authentication configuration
 
 ---
 
+## Running
 
-## 运行
+### 1. Initialization
 
-### 1. 初始化
+#### database
 
-#### 数据库
-
--  [alembic](https://github.com/sqlalchemy/alembic): https://blog.csdn.net/f066314/article/details/122416386
+- [alembic](https://github.com/sqlalchemy/alembic): https://blog.csdn.net/f066314/article/details/122416386
 
 ```bash
-# 安装 alembic
-uv pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+# Install alembic
+uv pip install -i https://pypi.tuna.tsinghua.edu.cn/simple  -r requirements.txt
 python -m alembic init alembic
 
-# 修改 alembic.ini 文件
+# Modify alembic.ini file
 # sqlalchemy.url = driver://user:pass@localhost/dbname
 sqlalchemy.url = postgresql+psycopg2://postgres:test@127.0.0.1:4331/sludge_web
 
-# env.py 文件导入 Base, 这样就能通过修改 models 文件夹内的类使得数据库自动迁移
+# env.py file imports Base, so that database migrations can be automatically made by modifying classes within the models folder
 # target_metadata = None
 from app.models.base_model import Base
 target_metadata = Base.metadata
 
-# 使用命令 alembic revision --autogenerate -m "备注", 生成当前的版本
+# Use the command alembic revision --autogenerate -m "note" to generate the current version
 python -m alembic revision --autogenerate -m "init_db"
 
-# 使用命令alembic upgrade head将alembic的版本更新到最新版
+# Use the command alembic upgrade head to update alembic to the latest version
 python -m alembic upgrade head
 
-# 初始化数据库
+# Initialize the database
 python update_db.py
 ```
 
 #### aioredis
 
-- `python 3.11`, `aioredis 2.0.1` , `redis 7.x`时, 启动连接时会报错`TypeError: duplicate base class TimeoutError`
-  `aioredis `目录下的` exceptions.py `文件, 定位到 14 行
+- When using `python 3.11`, `aioredis 2.0.1`, `redis 7.x`, an error `TypeError: duplicate base class TimeoutError` will occur when starting the connection. Locate to line 14 in the `exceptions.py` file under the `aioredis` directory
 
 ```python
 class TimeoutError(asyncio.TimeoutError, builtins.TimeoutError, RedisError):
 pass
 
-# 修改为如下代码, 即可运行
+# Modify the code as follows to run
 class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
     pass
 ```
 
-### 2. 启动
+### 2. Startup
 
-- `fastapi`与调度任务框架是分开启动的
+- `fastapi` and the scheduling task framework are started separately
 - **fastapi**
-  - 开发环境：进入根目录，运行 `python main.py`或者 `fastapi dev`
-  - 生成环境：通过 `supervisor`调用 `gunicorn`的配置文件 `fastapi-skeleton-template/storage/supervisor/gconfig.py`
+  - Development environment: Enter the root directory and run `python main.py` or `fastapi dev`
+  - Production environment: Call `gunicorn` configuration file `fastapi-skeleton-template/storage/supervisor/gconfig.py` through `supervisor`
 - **scheduler**
-  - 开发环境：进入根目录，运行 `python scheduler.py`
-  - 生成环境：通过 `supervisor`调用 `fastapi-skeleton-template/storage/supervisor/scheduler.py`
+  - Development environment: Enter the root directory and run `python scheduler.py`
+  - Production environment: Call `fastapi-skeleton-template/storage/supervisor/scheduler.py` through `supervisor`
 
 ---
 
-## 文件夹结构
+## Folder Structure
 
 ```
 /fastapi-skeleton-template/
 |-- alembic
 |   |   |-- versions
-|   |   |   |-- 7d5554c55cbb_init_db.py         ----- alembic 数据库初始化
+|   |   |   |-- 7d5554c55cbb_init_db.py         ----- alembic database initialization
 |   |   |-- env.py
 |   |   |-- README
 |   |   `-- script.py.mako
 |-- app
-|   |   |-- exceptions                          ----- 自定义的异常类
+|   |   |-- exceptions                          ----- Custom exception classes
 |   |   |    |-- __init__.py
 |   |   |    `-- exception.py
-|   |-- http                                    ----- http目录
-|   |   |-- api                                 ----- api接口目录
-|   |   |   |-- task                            ----- 任务调度目录
+|   |-- http                                    ----- http directory
+|   |   |-- api                                 ----- api interface directory
+|   |   |   |-- task                            ----- Task scheduling directory
 |   |   |   |   |-- __init__.py
-|   |   |   |    `-- test.py                    ----- 任务调度接口
-|   |   |   |-- user                            ----- 任务调度目录
+|   |   |   |    `-- test.py                    ----- Task scheduling interface
+|   |   |   |-- user                            ----- Task scheduling directory
 |   |   |   |   |-- __init__.py
-|   |   |   |   |-- auth.py                     ----- 登录认证接口
-|   |   |   |    `-- sign.py                    ----- 用户注册接口
+|   |   |   |   |-- auth.py                     ----- Login authentication interface
+|   |   |   |    `-- sign.py                    ----- User registration interface
 |   |   |   |-- __init__.py
-|   |   |-- middleware                          ----- 自定义中间件
+|   |   |-- middleware                          ----- Custom middleware
 |   |   |   `-- __init__.py
 |   |   |-- __init__.py
-|   |   `-- deps.py                             ----- 依赖
-|   |-- models                                  ----- 模型目录
+|   |   `-- deps.py                             ----- Dependencies
+|   |-- models                                  ----- Model directory
 |   |   |-- __init__.py
-|   |   |-- base_model.py                       ----- 定义模型的基类
+|   |   |-- base_model.py                       ----- Define the base class of models
 |   |   `-- user.py
-|   |-- providers                               ----- 核心服务提供者
+|   |-- providers                               ----- Core service providers
 |   |   |-- __init__.py
-|   |   |-- app_provider.py                     ----- 注册应用的全局事件、中间件等
-|   |   |-- database.py                         ----- 数据库连接
-|   |   |-- handle_exception.py                 ----- 异常处理器
-|   |   |-- logging_provider.py                 ----- 集成loguru日志系统
-|   |   `-- route_provider.py                   ----- 注册路由文件routes/*
-|   |-- schemas                                 ----- 数据模型，负责请求和响应资源数据的定义和格式转换
+|   |   |-- app_provider.py                     ----- Register application's global events, middleware, etc.
+|   |   |-- database.py                         ----- Database connection
+|   |   |-- handle_exception.py                 ----- Exception handler
+|   |   |-- logging_provider.py                 ----- Integrate loguru logging system
+|   |   `-- route_provider.py                   ----- Register route files routes/*
+|   |-- schemas                                 ----- Data models, responsible for the definition and format conversion of request and response resource data
 |   |   |-- __init__.py
 |   |   `-- user.py
-|   |-- services                                ----- 服务层，业务逻辑层
-|   |   |-- auth                                ----- 认证相关服务
+|   |-- services                                ----- Service layer, business logic layer
+|   |   |-- auth                                ----- Authentication-related services
 |   |   |   |-- __init__.py
-|   |   |   |-- grant.py                        ----- 认证核心类
+|   |   |   |-- grant.py                        ----- Authentication core class
 |   |   |   |-- jwt_helper.py
 |   |   |   `-- users.py
-|   |   |-- email                               ----- 邮件相关服务
+|   |   |-- email                               ----- Email-related services
 |   |   |   |-- __init__.py
-|   |   |   `-- email.py   
-|   |   |-- crypto.py                           ----- 加密解密相关服务
-|   |   |-- redis.py                            ----- redis同步服务
-|   |   |-- task.py                             ----- 调度任务相关服务
+|   |   |   `-- email.py
+|   |   |-- crypto.py                           ----- Encryption and decryption-related services
+|   |   |-- redis.py                            ----- Synchronous redis service
+|   |   |-- task.py                             ----- Scheduling task-related services
 |   |   `-- __init__.py
-|   |-- support                                 ----- 公共方法
+|   |-- support                                 ----- Public methods
 |   |   |-- __init__.py
-|   |   `-- asyncio.py                          ----- uvloop 替换 asyncio
-|   |-- tasks                                   ----- 调度任务
+|   |   `-- asyncio.py                          ----- uvloop replaces asyncio
+|   |-- tasks                                   ----- Scheduling tasks
 |   |   |-- __init__.py
-|   |   |-- params.py                           ----- funboost 入参
-|   |   `-- task_test.py                        ----- 调度任务主体
-|-- bootstrap                                   ----- 启动项
+|   |   |-- params.py                           ----- funboost input parameters
+|   |   `-- task_test.py                        ----- Main body of scheduling tasks
+|-- bootstrap                                   ----- Startup items
 |   |-- __init__.py
-|   `-- application.py                          ----- 创建app实例
-|-- config                                      ----- 配置目录
-|   |-- settings                                ----- 配置子目录
+|   `-- application.py                          ----- Create Fastapi instance
+|-- config                                      ----- Configuration directory
+|   |-- settings                                ----- Configuration subdirectory
 |   |   |-- __init__.py
-|   |   |-- dir.py                              ----- 配置路径配置
-|   |   |-- email.py                            ----- 邮件配置
-|   |   |-- logging.py                          ----- 日志配置
-|   |   `-- redis.py                            ----- redis 配置
+|   |   |-- dir.py                              ----- Configuration path configuration
+|   |   |-- email.py                            ----- Email configuration
+|   |   |-- logging.py                          ----- Logging configuration
+|   |   `-- redis.py                            ----- Redis configuration
 |   |-- __init__.py
-|   `-- config.py                               ----- app配置
-|-- routes                                      ----- 路由目录
+|   `-- config.py                               ----- App configuration
+|-- routes                                      ----- Route directory
 |   |-- __init__.py
-|   `-- api.py                                  ----- api路由
-|-- static                                      ----- 静态资源目录
+|   `-- api.py                                  ----- Api routes
+|-- static                                      ----- Static resource directory
 |   |-- fastapi
 |   |    |-- swagger-ui@5.17.14                 ----- swagger
-|   |    |    |-- favicon-32x32.png                               
-|   |    |    |-- swagger-ui.css                            
-|   |    |    |-- swagger-ui.css.map                             
-|   |    |    `-- swagger-ui-bundle.js                      
+|   |    |    |-- favicon-32x32.png
+|   |    |    |-- swagger-ui.css
+|   |    |    |-- swagger-ui.css.map
+|   |    |    `-- swagger-ui-bundle.js
 |-- storage
-|   |-- logs                                    ----- 日志目录
-|   |-- supervisor                              -----  supervisor 配置文件
-|   |   |-- fastapi.conf                        ----- fastapi 的 supervisor 配置文件
-|   |   `-- scheduler.conf                      ----- scheduler 的 supervisor 配置文件
-|   `-- tmp                                     ----- 临时文件
-|-- .env                                        ----- 环境配置
-|-- .env.development                            ----- 开发环境配置
-|-- .env.production                             ----- 生产环境配置
-|-- alembic.ini                                 ----- alembic 配置
-|-- funboost_config.py                          ----- funboost 首次启动时自动生成配置文件
-|-- gconfig.py                                  ----- 生产环境下 gunicorn 的配置文件
-|-- main.py                                     ----- app/api启动入口
-|-- nb_log_config.py                            ----- funboost 首次启动时自动生成的nb_log日志配置文件
+|   |-- logs                                    ----- Log directory
+|   |-- supervisor                              ----- Supervisor configuration files
+|   |   |-- fastapi.conf                        ----- Supervisor configuration file for fastapi
+|   |   `-- scheduler.conf                      ----- Supervisor configuration file for scheduler
+|   `-- tmp                                     ----- Temporary files
+|-- .env                                        ----- Environment configuration
+|-- .env.development                            ----- Development environment configuration
+|-- .env.production                             ----- Production environment configuration
+|-- alembic.ini                                 ----- Alembic configuration
+|-- funboost_config.py                          ----- Funboost automatically generates a configuration file upon first startup
+|-- gconfig.py                                  ----- Gunicorn configuration file for production environment
+|-- main.py                                     ----- App/api startup entry
+|-- nb_log_config.py                            ----- Funboost automatically generates nb_log logging configuration file upon first startup
 |-- requirements.txt
-|-- ruff.toml                                   ----- ruff 配置文件
-|-- scheduler.py                                ----- funboost 调度任务启动入口
-`-- update_db.py                                ----- 数据库更新脚本
+|-- ruff.toml                                   ----- Ruff configuration file
+|-- scheduler.py                                ----- Funboost scheduling task startup entry
+`-- update_db.py                                ----- Database update script
 ```
 
-### alembic 文件夹
+### alembic Folder
 
-- `alembic`文件夹包含了数据库迁移程序的核心代码。
+- The `alembic` folder contains the core code of the database migration program.
 
-### app 文件夹
+### app Folder
 
-- `app`文件夹包含了应用程序的核心代码
-- 测试环境下, `fastapi-skeleton-template/app/services/crypto.py`中的加密解密功能都是跳过的
+- The `app` folder contains the core code of the application
+- In the test environment, the encryption and decryption functions in `fastapi-skeleton-template/app/services/crypto.py` are skipped
 - `redis`
-  - `fastapi`启动时, 是异步连接的` redis`` 
-  - ``fastapi-skeleton-template/app/services/redis.py`中是同步 `redis`工具
+  - When `fastapi` starts, it connects to `redis` asynchronously
+  - `fastapi-skeleton-template/app/services/redis.py` contains synchronous `redis` utilities
 
+### bootstrap Folder
 
-### bootstrap 文件夹
+- The `bootstrap` folder contains the `application.py` file, which is used to bootstrap the framework and create a `Fastapi` instance.
 
-- `bootstrap` 文件夹包含了 `application.py` 文件，该文件用于引导框架，创建 `Fastapi`实例。
+### config Folder
 
-### config 文件夹
+- The `config` folder, as the name suggests, contains all the configuration files of the application.
 
-- `config`文件夹目录，顾名思义，包含了应用程序的所有配置文件。
+### routes Folder
 
-### routes 文件夹
+- The `routes` folder contains all the route definitions of the application.
 
-- `routes`文件夹包含了应用程序的所有路由定义。
+### static Folder
 
-### static 文件夹
+- `swagger-ui` is difficult to access in China, so it needs to be downloaded and saved locally.
 
-- `swagger-ui`在国内难以访问，需要先下载保存到本地。
+- [Solving the problem of fastapi accessing /docs and /redoc interface documentation showing blank or unable to load](https://blog.csdn.net/weixin_43936332/article/details/131020726)
 
-- [解决 fastapi 访问/docs 和/redoc 接口文档显示空白或无法加载](https://blog.csdn.net/weixin_43936332/article/details/131020726)
+- Download [swagger-ui](https://github.com/swagger-api/swagger-ui)
 
-- 下载[swagger-ui](https://github.com/swagger-api/swagger-ui)
-
-- 然后我们需要在 python 解释器环境(或虚拟环境)下 Lib/site-package/fastapi/openapi/docs.py 文件修改里面的静态资源访问路径:
+- Then we need to modify the static resource access path in the Lib/site-package/fastapi/openapi/docs.py file under the Python interpreter environment (or virtual environment):
 
   ```python
   swagger_js_url = "/static/fastapi/swagger-ui@5.17.14/swagger-ui-bundle.js"
@@ -228,7 +224,7 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
   swagger_favicon_url = "/static/fastapi/swagger-ui@5.17.14/favicon-32x32.png"
   ```
 
-- 然后在`fastapi-skeleton-template/bootstrap/application.py`中挂载静态资源文件夹
+- Then mount the static resource folder in `fastapi-skeleton-template/bootstrap/application.py`
 
   ```python
   app.mount(
@@ -237,16 +233,18 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
       name="static",
   )
   ```
-### storage 文件夹
-- `storage`文件夹用于存放日志文件，临时文件及其他资料性文件。
-  - supervisor 文件夹
-    - ` supervisor`文件夹用于存放 `supervisor`的配置文件。
+
+### storage Folder
+
+- The `storage` folder is used to store log files, temporary files, and other material files.
+  - `logs` folder: Used for storing log files.
+  - `supervisor` folder: Used for storing the configuration files for `supervisor`.
+  - `tmp` folder: Used for temporary and other reference files.
 
 ---
 
-## 参考
+## References
 
-- [FastAPI 官方中文文档](https://fastapi.tiangolo.com/zh/)
-- 代码结构组织风格参考 [Laravel 框架](https://github.com/laravel/laravel)
-- [python 万能分布式函数调度框架简 funboost](https://github.com/ydf0509/funboost)
-
+- [FastAPI Official Chinese Documentation](https://fastapi.tiangolo.com/zh/)
+- Code structure organization style refers to [Laravel Framework](https://github.com/laravel/laravel)
+- [Python Universal Distributed Function Scheduling Framework Simple Funboost](https://github.com/ydf0509/funboost)
