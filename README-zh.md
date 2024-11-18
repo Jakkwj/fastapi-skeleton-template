@@ -42,7 +42,7 @@ python -m alembic init alembic
 
 # 修改 alembic.ini 文件
 # sqlalchemy.url = driver://user:pass@localhost/dbname
-sqlalchemy.url = postgresql+psycopg2://postgres:test@127.0.0.1:4331/sludge_web
+sqlalchemy.url = postgresql+psycopg2://postgres:test@127.0.0.1:4331/test
 
 # env.py 文件导入 Base, 这样就能通过修改 models 文件夹内的类使得数据库自动迁移
 # target_metadata = None

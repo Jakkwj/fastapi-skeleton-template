@@ -43,7 +43,7 @@ python -m alembic init alembic
 
 # Modify alembic.ini file
 # sqlalchemy.url = driver://user:pass@localhost/dbname
-sqlalchemy.url = postgresql+psycopg2://postgres:test@127.0.0.1:4331/sludge_web
+sqlalchemy.url = postgresql+psycopg2://postgres:test@127.0.0.1:4331/test
 
 # env.py file imports Base, so that database migrations can be automatically made by modifying classes within the models folder
 # target_metadata = None
