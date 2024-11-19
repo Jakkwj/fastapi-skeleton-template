@@ -34,10 +34,12 @@
 
 #### 数据库
 
-- [alembic](https://github.com/sqlalchemy/alembic): https://blog.csdn.net/f066314/article/details/122416386
+- 首先, 需要在`postgresql`数据库中新建一个`test`数据库
+- 然后, 通过`alembic`新建一个`User`表
+- 最后通过`update_db.py`新建一个用户
 
 ```bash
-# 安装 alembic
+# 初始化 alembic
 python -m alembic init alembic
 
 # 修改 alembic.ini 文件
@@ -55,16 +57,17 @@ python -m alembic revision --autogenerate -m "init_db"
 # 使用命令alembic upgrade head将alembic的版本更新到最新版
 python -m alembic upgrade head
 
-# 初始化数据库
+
+# 通过同步引擎连接 postgresql, 新建一个 User (用户名和密码都是test)
 python update_db.py
 ```
 
 #### aioredis
 
-- `python 3.11`, `aioredis 2.0.1` , `redis 7.x`时, 启动连接时会报错`TypeError: duplicate base class TimeoutError`
-  `aioredis `目录下的`exceptions.py`文件, 定位到 14 行
+- `aioredis 2.0.1` , `redis 7.x`时, 启动连接时会报错`TypeError: duplicate base class TimeoutError`, 需要手动修改`lib/python3.11/site-packages/aioredis `目录下的`exceptions.py`文件
 
 ```python
+# 将第 14 行
 class TimeoutError(asyncio.TimeoutError, builtins.TimeoutError, RedisError):
 pass
 
@@ -75,13 +78,15 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### 3. 启动
 
-- `fastapi`与调度任务框架是分开启动的
-- **fastapi**
-  - 开发环境：进入根目录，运行 `python main.py`或者 `fastapi dev`
-  - 生成环境：通过 `supervisor`调用 `gunicorn`的配置文件 `fastapi-skeleton-template/storage/supervisor/gconfig.py`
-- **scheduler**
-  - 开发环境：进入根目录，运行 `python scheduler.py`
-  - 生成环境：通过 `supervisor`调用 `fastapi-skeleton-template/storage/supervisor/scheduler.py`
+- `fastapi`与调度任务框架`funboost`是分别启动的:
+  - **fastapi**
+    - 开发环境：进入根目录，运行 `python main.py`或者 `fastapi dev`
+    - 生成环境：通过 `supervisor`调用 `gunicorn`的配置文件 `fastapi-skeleton-template/storage/supervisor/gconfig.py`
+
+  - **scheduler**
+    - 开发环境：进入根目录，运行 `python scheduler.py`
+    - 生成环境：通过 `supervisor`调用 `fastapi-skeleton-template/storage/supervisor/scheduler.py`
+
 
 ---
 
@@ -253,3 +258,4 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 - [FastAPI 官方中文文档](https://fastapi.tiangolo.com/zh/)
 - 代码结构组织风格参考 [Laravel 框架](https://github.com/laravel/laravel)
 - [python 万能分布式函数调度框架简 funboost](https://github.com/ydf0509/funboost)
+- [alembic](https://github.com/sqlalchemy/alembic): https://blog.csdn.net/f066314/article/details/122416386

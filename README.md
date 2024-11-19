@@ -34,10 +34,12 @@
 
 #### database
 
-- [alembic](https://github.com/sqlalchemy/alembic): https://blog.csdn.net/f066314/article/details/122416386
+- First, you need to create a new `test` database in the `postgresql` 
+- Then, create a `User` table through `alembic`
+- Finally, create a new user through `update_db.py`
 
 ```bash
-# Install alembic
+# Initialize alembic
 uv pip install -i https://pypi.tuna.tsinghua.edu.cn/simple  -r requirements.txt
 python -m alembic init alembic
 
@@ -56,15 +58,16 @@ python -m alembic revision --autogenerate -m "init_db"
 # Use the command alembic upgrade head to update alembic to the latest version
 python -m alembic upgrade head
 
-# Initialize the database
+# Connect to postgresql via the synchronous engine, and create a new User (with both username and password set to 'test').
 python update_db.py
 ```
 
 #### aioredis
 
-- When using `python 3.11`, `aioredis 2.0.1`, `redis 7.x`, an error `TypeError: duplicate base class TimeoutError` will occur when starting the connection. Locate to line 14 in the `exceptions.py` file under the `aioredis` directory
+- When using `aioredis 2.0.1` with `redis 7.x`, you may encounter a `TypeError: duplicate base class TimeoutError` upon attempting to establish a connection. To resolve this issue, you will need to manually modify the `exceptions.py` file located in the `lib/python3.11/site-packages/aioredis` directory.
 
 ```python
+# Line 14
 class TimeoutError(asyncio.TimeoutError, builtins.TimeoutError, RedisError):
 pass
 
@@ -75,13 +78,15 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### 3. Startup
 
-- `fastapi` and the scheduling task framework are started separately
-- **fastapi**
-  - Development environment: Enter the root directory and run `python main.py` or `fastapi dev`
-  - Production environment: Call `gunicorn` configuration file `fastapi-skeleton-template/storage/supervisor/gconfig.py` through `supervisor`
-- **scheduler**
-  - Development environment: Enter the root directory and run `python scheduler.py`
-  - Production environment: Call `fastapi-skeleton-template/storage/supervisor/scheduler.py` through `supervisor`
+- `fastapi` and the scheduling task framework `funboost` are started separately:
+  - **fastapi**
+    - Development environment: Enter the root directory and run `python main.py` or `fastapi dev`
+    - Production environment: Call `gunicorn` configuration file `fastapi-skeleton-template/storage/supervisor/gconfig.py` through `supervisor`
+
+  - **scheduler**
+    - Development environment: Enter the root directory and run `python scheduler.py`
+    - Production environment: Call `fastapi-skeleton-template/storage/supervisor/scheduler.py` through `supervisor`
+
 
 ---
 
@@ -253,3 +258,4 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 - [FastAPI Official Chinese Documentation](https://fastapi.tiangolo.com/zh/)
 - Code structure organization style refers to [Laravel Framework](https://github.com/laravel/laravel)
 - [Python Universal Distributed Function Scheduling Framework Simple Funboost](https://github.com/ydf0509/funboost)
+- [alembic](https://github.com/sqlalchemy/alembic): https://blog.csdn.net/f066314/article/details/122416386
