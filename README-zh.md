@@ -34,7 +34,7 @@
 
 #### 数据库
 
-- 首先, 需要在`postgresql`数据库中新建一个`test`数据库
+- 首先, 需要在`postgresql`中新建一个`test`数据库
 - 然后, 通过`alembic`新建一个`User`表
 - 最后通过`update_db.py`新建一个用户
 
@@ -67,7 +67,7 @@ python update_db.py
 - `aioredis 2.0.1` , `redis 7.x`时, 启动连接时会报错`TypeError: duplicate base class TimeoutError`, 需要手动修改`lib/python3.11/site-packages/aioredis `目录下的`exceptions.py`文件
 
 ```python
-# 将第 14 行
+# 第 14 行
 class TimeoutError(asyncio.TimeoutError, builtins.TimeoutError, RedisError):
 pass
 
@@ -203,7 +203,7 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 - `app`文件夹包含了应用程序的核心代码
 - 测试环境下, `fastapi-skeleton-template/app/services/crypto.py`中的加密解密功能都是跳过的
 - `redis`
-  - `fastapi`启动时, 是异步连接的` redis``
+  - `fastapi`启动时, 是异步连接的` redis`
   - ``fastapi-skeleton-template/app/services/redis.py`中是同步 `redis`工具
 
 ### bootstrap 文件夹
