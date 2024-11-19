@@ -196,7 +196,7 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### alembic 文件夹
 
-- `alembic`文件夹包含了数据库迁移程序的核心代码。
+- `alembic`文件夹包含了数据库迁移程序的核心代码
 
 ### app 文件夹
 
@@ -208,19 +208,19 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 
 ### bootstrap 文件夹
 
-- `bootstrap` 文件夹包含了 `application.py` 文件，该文件用于引导框架，创建 `Fastapi`实例。
+- `bootstrap` 文件夹包含了 `application.py` 文件，该文件用于引导框架，创建 `Fastapi`实例
 
 ### config 文件夹
 
-- `config`文件夹目录，顾名思义，包含了应用程序的所有配置文件。
+- `config`文件夹目录，顾名思义，包含了应用程序的所有配置文件
 
 ### routes 文件夹
 
-- `routes`文件夹包含了应用程序的所有路由定义。
+- `routes`文件夹包含了应用程序的所有路由定义
 
 ### static 文件夹
 
-- `swagger-ui`在国内难以访问，需要先下载保存到本地。
+- `swagger-ui`在国内难以访问，需要先下载保存到本地
 
 - [解决 fastapi 访问/docs 和/redoc 接口文档显示空白或无法加载](https://blog.csdn.net/weixin_43936332/article/details/131020726)
 
