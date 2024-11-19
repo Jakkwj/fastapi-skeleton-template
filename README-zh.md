@@ -6,7 +6,7 @@
 
   - 数据库
 
-    - [postgresql](https://www.postgresql.org) + [redis](https://github.com/redis/redis)
+    - [postgresql](https://www.postgresql.org) + [redis](https://github.com/redis/redis) (异步)
     - `ORM`模型: [sqlalchemy](https://github.com/sqlalchemy/sqlalchemy)
     - 迁移: [alembic](https://github.com/sqlalchemy/alembic)
 
@@ -84,8 +84,10 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
     - 生成环境：通过 `supervisor`调用 `gunicorn`的配置文件 `fastapi-skeleton-template/storage/supervisor/gconfig.py`
 
   - **scheduler**
+    - 采用`redis`进行消息中间件 (可根据情况选择, `funboost`支持`rabbitmq`, `KAFKA`等多种消息中间件)
     - 开发环境：进入根目录，运行 `python scheduler.py`
     - 生成环境：通过 `supervisor`调用 `fastapi-skeleton-template/storage/supervisor/scheduler.py`
+    
 
 
 ---
@@ -203,8 +205,8 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 - `app`文件夹包含了应用程序的核心代码
 - 测试环境下, `fastapi-skeleton-template/app/services/crypto.py`中的加密解密功能都是跳过的
 - `redis`
-  - `fastapi`启动时, 是异步连接的` redis`
-  - ``fastapi-skeleton-template/app/services/redis.py`中是同步 `redis`工具
+  - `fastapi`启动时, 是异步连接的`redis`
+  - `fastapi-skeleton-template/app/services/redis.py`中是同步 `redis`工具
 
 ### bootstrap 文件夹
 

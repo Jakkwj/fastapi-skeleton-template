@@ -6,7 +6,7 @@
 
   - Database
 
-    - [postgresql](https://www.postgresql.org) + [redis](https://github.com/redis/redis)
+    - [postgresql](https://www.postgresql.org) + [redis](https://github.com/redis/redis) (asynchronously)
     - `ORM` model: [sqlalchemy](https://github.com/sqlalchemy/sqlalchemy)
     - Migration: [alembic](https://github.com/sqlalchemy/alembic)
 
@@ -84,8 +84,10 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
     - Production environment: Call `gunicorn` configuration file `fastapi-skeleton-template/storage/supervisor/gconfig.py` through `supervisor`
 
   - **scheduler**
+    - Using `redis` as a message broker (alternatively, `funboost` supports various message brokers such as `rabbitmq`, `KAFKA`, etc.)
     - Development environment: Enter the root directory and run `python scheduler.py`
     - Production environment: Call `fastapi-skeleton-template/storage/supervisor/scheduler.py` through `supervisor`
+    
 
 
 ---
