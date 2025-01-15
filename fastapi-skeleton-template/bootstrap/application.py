@@ -25,15 +25,15 @@ def create_app() -> FastAPI:
 
     app = FastAPI(lifespan=app_provider.lifespan)
 
+    register(app, app_provider, settings)
+    register(app, logging_provider, settings)
+    register(app, exception_handler, settings)
+
     app.mount(
         "/static",
         StaticFiles(directory="static"),
         name="static",
     )
-
-    register(app, logging_provider, settings)
-    register(app, app_provider, settings)
-    register(app, exception_handler, settings)
 
     boot(app, route_provider)
 

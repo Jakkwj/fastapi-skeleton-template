@@ -55,13 +55,15 @@ async def lifespan(app: FastAPI):
     logger.info("Application stopping...")
 
 
-def add_global_middleware(app: FastAPI):
+def add_global_middleware(app: FastAPI, settings):
     """
     注册全局中间件
     """
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=[
+            settings.FRONTEND_URL,  # https://dash.simpowater.org, http://127.0.0.0:9000
+        ],  # 允许的来源列表, 不要简单地使用 ["*"] 来允许所有来源, 可能带来安全风险
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -72,4 +74,4 @@ def register(app: FastAPI, settings: DevelopmentSettings | ProductionSettings):
     app.debug = settings.DEBUG
     app.title = settings.NAME
 
-    add_global_middleware(app)
+    add_global_middleware(app, settings)
