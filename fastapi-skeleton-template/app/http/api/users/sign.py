@@ -30,32 +30,34 @@ async def signup(
         email = decrypt_data(UserSignUp.email).lower()  # 强制小写
 
         async with db as session:
-            result = await session.execute(select(User.id).where(User.name == name))
-            user_id = result.scalars().first()  # 第一条数据
-            if user_id:
+            result = (
+                await session.execute(select(User.id).where(User.name == name).limit(1))
+            ).first()
+            if result:
                 return ORJSONResponse(
                     {"message": "User Name Already Exists. Please Enter a Different User Name."},
                     status_code=status.HTTP_226_IM_USED,
                 )
 
-            result = await session.execute(select(User.id).where(User.email == email))
-            user_id = result.scalars().first()  # 第一条数据
-            if user_id:
+            result = (
+                await session.execute(select(User.id).where(User.email == email).limit(1))
+            ).first()
+            if result:
                 return ORJSONResponse(
                     {"message": "Email Already Exists. Please Enter a Different Email."},
                     status_code=status.HTTP_226_IM_USED,
                 )
 
-        user = User(
-            name=name,  # type: ignore
-            email=email,  # type: ignore
-            password=decrypt_data(UserSignUp.password),  # type: ignore
-            created_timestamp=datetime.now(),  # type: ignore
-        )
-
         try:
             async with db as session:
-                session.add(user)
+                session.add(
+                    User(
+                        name=name,
+                        email=email,
+                        password=decrypt_data(UserSignUp.password),
+                        created_timestamp=datetime.now(),
+                    )
+                )
                 await session.commit()
 
             return ORJSONResponse(
