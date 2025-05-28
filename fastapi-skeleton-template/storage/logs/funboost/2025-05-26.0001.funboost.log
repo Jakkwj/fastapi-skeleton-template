@@ -1,0 +1,109 @@
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:64" - show_funboost_flag - DEBUG - [0m
+
+          ___                  ___                    ___                                           ___                    ___                    ___                          
+         /  /\                /__/\                  /__/\                  _____                  /  /\                  /  /\                  /  /\                   ___   
+        /  /:/_               \  \:\                 \  \:\                /  /::\                /  /::\                /  /::\                /  /:/_                 /  /\  
+       /  /:/ /\               \  \:\                 \  \:\              /  /:/\:\              /  /:/\:\              /  /:/\:\              /  /:/ /\               /  /:/  
+      /  /:/ /:/           ___  \  \:\            _____\__\:\            /  /:/~/::\            /  /:/  \:\            /  /:/  \:\            /  /:/ /::\             /  /:/   
+     /__/:/ /:/           /__/\  \__\:\          /__/::::::::\          /__/:/ /:/\:|          /__/:/ \__\:\          /__/:/ \__\:\          /__/:/ /:/\:\           /  /::\   
+     \  \:\/:/            \  \:\ /  /:/          \  \:\~~\~~\/          \  \:\/:/~/:/          \  \:\ /  /:/          \  \:\ /  /:/          \  \:\/:/~/:/          /__/:/\:\  
+      \  \::/              \  \:\  /:/            \  \:\  ~~~            \  \::/ /:/            \  \:\  /:/            \  \:\  /:/            \  \::/ /:/           \__\/  \:\ 
+       \  \:\               \  \:\/:/              \  \:\                 \  \:\/:/              \  \:\/:/              \  \:\/:/              \__\/ /:/                 \  \:\
+        \  \:\               \  \::/                \  \:\                 \  \::/                \  \::/                \  \::/                 /__/:/                   \__\/
+         \__\/                \__\/                  \__\/                  \__\/                  \__\/                  \__\/                  \__\/                         
+
+
+
+    [0m
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:66" - show_funboost_flag - DEBUG - 分布式函数调度框架funboost文档地址：  [0m https://funboost.readthedocs.io/zh-cn/latest/ [0m 
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:127" - use_config_form_funboost_config_module - DEBUG - [0;93m22:44:33[0m  "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:127"   [0;93;100m
+    分布式函数调度框架会自动导入funboost_config模块
+    当第一次运行脚本时候，函数调度框架会在你的python当前项目的根目录下 /home/gift/.pyenv/versions/3.11.9/lib/python311.zip 下，创建一个名为 funboost_config.py 的文件。
+    自动读取配置，会优先读取启动脚本的所在目录 /media/Data/SynologyDrive/GitHub/FastapiSkeletonTemplate/fastapi-skeleton-template 的funboost_config.py文件，
+    如果没有 /media/Data/SynologyDrive/GitHub/FastapiSkeletonTemplate/fastapi-skeleton-template/funboost_config.py 文件，则读取项目根目录 /home/gift/.pyenv/versions/3.11.9/lib/python311.zip 下的funboost_config.py做配置。
+    只要 funboost_config.py 在任意 PYTHONPATH 的文件夹下，就能自动读取到。
+    在 "/home/gift/.pyenv/versions/3.11.9/lib/python311.zip/funboost_config.py:1" 文件中，需要按需重新设置要使用到的中间件的键和值，例如没有使用rabbitmq而是使用redis做中间件，则不需要配置rabbitmq。
+    [0m
+
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:136" - use_config_form_funboost_config_module - DEBUG - 分布式函数调度框架 读取到
+ "/media/Data/SynologyDrive/GitHub/FastapiSkeletonTemplate/fastapi-skeleton-template/funboost_config.py:1" 文件里面的变量作为优先配置了
+
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:85" - show_frame_config - DEBUG - 显示当前的项目中间件配置参数
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:101" - show_frame_config - DEBUG - 读取的 BrokerConnConfig 配置是:
+ {
+    "MONGO_CONNECT_URL": "mongodb://127.0.0.1:27017",
+    "RABBITMQ_USER": "rabbitmq_user",
+    "RABBITMQ_PASS": "rab**********",
+    "RABBITMQ_HOST": "127.0.0.1",
+    "RABBITMQ_PORT": 5672,
+    "RABBITMQ_VIRTUAL_HOST": "",
+    "RABBITMQ_URL": "amqp://rabbitmq_user:rab**********@127.0.0.1:5672/",
+    "REDIS_HOST": "127.0.0.1",
+    "REDIS_USERNAME": "",
+    "REDIS_PASSWORD": "",
+    "REDIS_PORT": 6379,
+    "REDIS_DB": 7,
+    "REDIS_DB_FILTER_AND_RPC_RESULT": 8,
+    "REDIS_URL": "redis://:@127.0.0.1:6379/7",
+    "NSQD_TCP_ADDRESSES": "['127.0.0.1:4150']",
+    "NSQD_HTTP_CLIENT_HOST": "127.0.0.1",
+    "NSQD_HTTP_CLIENT_PORT": 4151,
+    "KAFKA_BOOTSTRAP_SERVERS": "['127.0.0.1:9092']",
+    "KFFKA_SASL_CONFIG": {
+        "bootstrap_servers": [
+            "127.0.0.1:9092"
+        ],
+        "sasl_plain_username": "",
+        "sasl_plain_password": "",
+        "sasl_mechanism": "SCRAM-SHA-256",
+        "security_protocol": "SASL_PLAINTEXT"
+    },
+    "SQLACHEMY_ENGINE_URL": "sqlite:////sqlachemy_queues/queues.db",
+    "MYSQL_HOST": "127.0.0.1",
+    "MYSQL_PORT": 3306,
+    "MYSQL_USER": "root",
+    "MYSQL_PASSWORD": "123***",
+    "MYSQL_DATABASE": "testdb6",
+    "SQLLITE_QUEUES_PATH": "/sqllite_queues",
+    "TXT_FILE_PATH": "/media/Data/SynologyDrive/GitHub/FastapiSkeletonTemplate/fastapi-skeleton-template/txt_queues",
+    "ROCKETMQ_NAMESRV_ADDR": "192.168.199.202:9876",
+    "MQTT_HOST": "127.0.0.1",
+    "MQTT_TCP_PORT": 1883,
+    "HTTPSQS_HOST": "127.0.0.1",
+    "HTTPSQS_PORT": "1218",
+    "HTTPSQS_AUTH": "123456",
+    "NATS_URL": "nats://192.168.6.134:4222",
+    "KOMBU_URL": "redis://127.0.0.1:6379/9",
+    "CELERY_BROKER_URL": "redis://127.0.0.1:6379/12",
+    "CELERY_RESULT_BACKEND": "redis://127.0.0.1:6379/13",
+    "DRAMATIQ_URL": "amqp://rabbitmq_user:rab**********@127.0.0.1:5672/",
+    "PULSAR_URL": "pulsar://192.168.70.128:6650"
+} 
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:103" - show_frame_config - DEBUG - 读取的 FunboostCommonConfig 配置是:
+  {
+    "NB_LOG_FORMATER_INDEX_FOR_CONSUMER_AND_PUBLISHER": "<logging.Formatter object at 0x7fa996cebad0>",
+    "TIMEZONE": "Asia/Shanghai",
+    "SHOW_HOW_FUNBOOST_CONFIG_SETTINGS": true,
+    "FUNBOOST_PROMPT_LOG_LEVEL": 10,
+    "KEEPALIVETIMETHREAD_LOG_LEVEL": 10
+} 
+2025-05-26 22:44:33 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/core/booster.py:104" - __call__ - DEBUG -  task_test booster 配置是 {"queue_name": "task_test", "concurrent_mode": "threading", "concurrent_num": 200, "specify_concurrent_pool": null, "specify_async_loop": null, "qps": null, "is_using_distributed_frequency_control": false, "is_send_consumer_hearbeat_to_redis": false, "max_retry_times": 3, "retry_interval": 0, "is_push_to_dlx_queue_when_retry_max_times": false, "consumin_function_decorator": null, "function_timeout": 0, "log_level": 10, "logger_prefix": "", "create_logger_file": true, "logger_name": "", "log_filename": null, "is_show_message_get_from_broker": false, "is_print_detail_exception": true, "msg_expire_senconds": null, "do_task_filtering": false, "task_filtering_expire_seconds": 0, "function_result_status_persistance_conf": {"is_save_status": false, "is_save_result": false, "expire_seconds": 604800, "is_use_bulk_insert": false}, "user_custom_record_process_info_func": null, "is_using_rpc_mode": true, "rpc_result_expire_seconds": 600, "is_support_remote_kill_task": true, "is_do_not_run_by_specify_time_effect": false, "do_not_run_by_specify_time": ["10:00:00", "22:00:00"], "schedule_tasks_on_main_thread": false, "is_auto_start_consuming_message": false, "consuming_function": "<function task_test at 0x7fa996f90860>", "consuming_function_raw": "<function task_test at 0x7fa996f90860>", "broker_kind": "REDIS", "broker_exclusive_config": {}, "should_check_publish_func_params": true, "consumer_override_cls": null, "publisher_override_cls": null, "auto_generate_info": {}, "consuming_function_kind": "COMMON_FUNCTION"}
+2025-05-26 22:44:34 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:64" - show_funboost_flag - DEBUG - [0m
+
+          ___                  ___                    ___                                           ___                    ___                    ___                          
+         /  /\                /__/\                  /__/\                  _____                  /  /\                  /  /\                  /  /\                   ___   
+        /  /:/_               \  \:\                 \  \:\                /  /::\                /  /::\                /  /::\                /  /:/_                 /  /\  
+       /  /:/ /\               \  \:\                 \  \:\              /  /:/\:\              /  /:/\:\              /  /:/\:\              /  /:/ /\               /  /:/  
+      /  /:/ /:/           ___  \  \:\            _____\__\:\            /  /:/~/::\            /  /:/  \:\            /  /:/  \:\            /  /:/ /::\             /  /:/   
+     /__/:/ /:/           /__/\  \__\:\          /__/::::::::\          /__/:/ /:/\:|          /__/:/ \__\:\          /__/:/ \__\:\          /__/:/ /:/\:\           /  /::\   
+     \  \:\/:/            \  \:\ /  /:/          \  \:\~~\~~\/          \  \:\/:/~/:/          \  \:\ /  /:/          \  \:\ /  /:/          \  \:\/:/~/:/          /__/:/\:\  
+      \  \::/              \  \:\  /:/            \  \:\  ~~~            \  \::/ /:/            \  \:\  /:/            \  \:\  /:/            \  \::/ /:/           \__\/  \:\ 
+       \  \:\               \  \:\/:/              \  \:\                 \  \:\/:/              \  \:\/:/              \  \:\/:/              \__\/ /:/                 \  \:\
+        \  \:\               \  \::/                \  \:\                 \  \::/                \  \::/                \  \::/                 /__/:/                   \__\/
+         \__\/                \__\/                  \__\/                  \__\/                  \__\/                  \__\/                  \__\/                         
+
+
+
+    [0m
+2025-05-26 22:44:34 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/set_frame_config.py:66" - show_funboost_flag - DEBUG - 分布式函数调度框架funboost文档地址：  [0m https://funboost.readthedocs.io/zh-cn/latest/ [0m 
+2025-05-26 22:44:34 - funboost.prompt - "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/core/booster.py:104" - __call__ - DEBUG -  task_test booster 配置是 {"queue_name": "task_test", "concurrent_mode": "threading", "concurrent_num": 200, "specify_concurrent_pool": null, "specify_async_loop": null, "qps": null, "is_using_distributed_frequency_control": false, "is_send_consumer_hearbeat_to_redis": false, "max_retry_times": 3, "retry_interval": 0, "is_push_to_dlx_queue_when_retry_max_times": false, "consumin_function_decorator": null, "function_timeout": 0, "log_level": 10, "logger_prefix": "", "create_logger_file": true, "logger_name": "", "log_filename": null, "is_show_message_get_from_broker": false, "is_print_detail_exception": true, "msg_expire_senconds": null, "do_task_filtering": false, "task_filtering_expire_seconds": 0, "function_result_status_persistance_conf": {"is_save_status": false, "is_save_result": false, "expire_seconds": 604800, "is_use_bulk_insert": false}, "user_custom_record_process_info_func": null, "is_using_rpc_mode": true, "rpc_result_expire_seconds": 600, "is_support_remote_kill_task": true, "is_do_not_run_by_specify_time_effect": false, "do_not_run_by_specify_time": ["10:00:00", "22:00:00"], "schedule_tasks_on_main_thread": false, "is_auto_start_consuming_message": false, "consuming_function": "<function task_test at 0x7fefbf291e40>", "consuming_function_raw": "<function task_test at 0x7fefbf291e40>", "broker_kind": "REDIS", "broker_exclusive_config": {}, "should_check_publish_func_params": true, "consumer_override_cls": null, "publisher_override_cls": null, "auto_generate_info": {}, "consuming_function_kind": "COMMON_FUNCTION"}

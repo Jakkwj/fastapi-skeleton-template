@@ -1,0 +1,23 @@
+2025-05-26 22:44:33  "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/nb_log/__init__.py:57" -[print]-<module>- [0m
+        1)使用pycharm时候，强烈建议按下面的重新自定义设置pycharm的console里面的主题颜色，否则颜色显示瞎眼，代码里面规定的颜色只是大概的红黄蓝绿。在不同的ide软件和主题、字体下是不同的显示效果，需要用户自己设置。
+        设置方式为 打开pycharm的 file -> settings -> Editor -> Color Scheme -> Console Colors 选择monokai，点击展开 ANSI colors，
+        并重新修改自定义7个颜色，设置Blue为 0454F3 ，Cyan为 06F0F6 ，Green 为 13FC02 ，Magenta为 ff1cd5 ,red为 F80606 ，yellow为 EAFA04 ，gray 为 FFFFFF ，white 为 FFFFFF 。
+        不同版本的pycahrm或主题或ide，可以根据控制台根据实际显示设置。
+
+        2)使用xshell或finashell工具连接linux也可以自定义主题颜色，默认使用shell连接工具的颜色也可以。
+
+        颜色效果如连接 https://ibb.co/qRssXTr
+
+        在当前项目根目录的 nb_log_config.py 中可以修改当get_logger方法不传参时后的默认日志行为。
+
+        nb_log文档 https://nb-log-doc.readthedocs.io/zh_CN/latest/
+
+        为什么要设置pycharm终端颜色，解释为什么\033不能决定最终颜色 https://nb-log-doc.readthedocs.io/zh_CN/latest/articles/c1.html#c
+        [0m
+
+        
+ 2025-05-26 22:44:33  "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/consumers/base_consumer.py:152" -[print]-__init__- [0m
+         "/media/Data/SynologyDrive/GitHub/FastapiSkeletonTemplate/fastapi-skeleton-template/app/tasks/task_test.py:10" [0m此行 实例化队列名 task_test 的消费者, 类型为 <class 'funboost.consumers.redis_consumer.RedisConsumer'> 
+ 2025-05-26 22:44:34  "/home/gift/.pyenv/versions/sp/lib/python3.11/site-packages/funboost/consumers/base_consumer.py:152" -[print]-__init__- [0m
+         "/media/Data/SynologyDrive/GitHub/FastapiSkeletonTemplate/fastapi-skeleton-template/app/tasks/task_test.py:10" [0m此行 实例化队列名 task_test 的消费者, 类型为 <class 'funboost.consumers.redis_consumer.RedisConsumer'> 
+ 

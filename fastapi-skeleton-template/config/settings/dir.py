@@ -12,4 +12,6 @@ def get_work_dir() -> str:
         work_dir: /fastapi-skeleton-template/
     """
     current_dir: str = __file__.strip(path.basename(__file__))  # 当前文件所在的绝对路径
-    return current_dir.replace("config/settings/", "")  # 必须提前确定
+    return current_dir.replace("config/settings/", "").replace(
+        "config\\settings\\", ""
+    )  # 必须提前确定
