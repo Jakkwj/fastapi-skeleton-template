@@ -34,7 +34,7 @@
 
 #### database
 
-- First, you need to create a new `test` database in the `postgresql` 
+- First, you need to create a new `test` database in the `postgresql`
 - Then, create a `User` table through `alembic`
 - Finally, create a new user through `update_db.py`
 
@@ -69,7 +69,7 @@ python update_db.py
 ```python
 # Line 14
 class TimeoutError(asyncio.TimeoutError, builtins.TimeoutError, RedisError):
-pass
+    pass
 
 # Modify the code as follows to run
 class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
@@ -79,7 +79,9 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 ### 3. Startup
 
 - `fastapi` and the scheduling task framework `funboost` are started separately:
+
   - **fastapi**
+
     - Development environment: Enter the root directory and run `python main.py` or `fastapi dev`
     - Production environment: Call `gunicorn` configuration file `fastapi-skeleton-template/storage/supervisor/gconfig.py` through `supervisor`
 
@@ -87,8 +89,6 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
     - Using `redis` as a message broker (alternatively, `funboost` supports various message brokers such as `rabbitmq`, `KAFKA`, etc.)
     - Development environment: Enter the root directory and run `python scheduler.py`
     - Production environment: Call `fastapi-skeleton-template/storage/supervisor/scheduler.py` through `supervisor`
-    
-
 
 ---
 

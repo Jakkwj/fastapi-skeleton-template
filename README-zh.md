@@ -69,7 +69,7 @@ python update_db.py
 ```python
 # 第 14 行
 class TimeoutError(asyncio.TimeoutError, builtins.TimeoutError, RedisError):
-pass
+    pass
 
 # 修改为如下代码, 即可运行
 class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
@@ -79,7 +79,9 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
 ### 3. 启动
 
 - `fastapi`与调度任务框架`funboost`是分别启动的:
+
   - **fastapi**
+
     - 开发环境：进入根目录，运行 `python main.py`或者 `fastapi dev`
     - 生成环境：通过 `supervisor`调用 `gunicorn`的配置文件 `fastapi-skeleton-template/storage/supervisor/gconfig.py`
 
@@ -87,8 +89,6 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
     - 采用`redis`进行消息中间件 (可根据情况选择, `funboost`支持`rabbitmq`, `KAFKA`等多种消息中间件)
     - 开发环境：进入根目录，运行 `python scheduler.py`
     - 生成环境：通过 `supervisor`调用 `fastapi-skeleton-template/storage/supervisor/scheduler.py`
-    
-
 
 ---
 
