@@ -5,7 +5,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.exceptions.exception import AuthenticationError
 from app.http.deps import (
-    get_current_user,
     get_db_session,
     get_payload_from_token,
     oauth2_scheme,

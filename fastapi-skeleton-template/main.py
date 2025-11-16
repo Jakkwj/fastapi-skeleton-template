@@ -1,8 +1,10 @@
+import uvloop
 from uvicorn import run
 
 from bootstrap.application import create_app
 from config.config import get_settings
 
+uvloop.install()  # 全局启用 uvloop
 settings = get_settings()
 app = create_app()
 
@@ -25,4 +27,5 @@ if __name__ == "__main__":
         port=settings.SERVER_PORT,
         reload=settings.DEBUG,
         workers=settings.WORKERS,
+        loop="uvloop",
     )

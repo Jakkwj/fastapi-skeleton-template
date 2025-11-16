@@ -83,12 +83,12 @@ class TimeoutError(asyncio.exceptions.TimeoutError, RedisError):
   - **fastapi**
 
     - 开发环境：进入根目录，运行 `python main.py`或者 `fastapi dev`
-    - 生成环境：通过 `supervisor`调用 `gunicorn`的配置文件 `fastapi-skeleton-template/storage/supervisor/gconfig.py`
+    - 生产环境：通过 `supervisor`调用 `gunicorn`的配置文件 `fastapi-skeleton-template/storage/supervisor/gconfig.py`
 
   - **scheduler**
     - 采用`redis`进行消息中间件 (可根据情况选择, `funboost`支持`rabbitmq`, `KAFKA`等多种消息中间件)
     - 开发环境：进入根目录，运行 `python scheduler.py`
-    - 生成环境：通过 `supervisor`调用 `fastapi-skeleton-template/storage/supervisor/scheduler.py`
+    - 生产环境：通过 `supervisor`调用 `fastapi-skeleton-template/storage/supervisor/scheduler.py`
 
 ---
 
